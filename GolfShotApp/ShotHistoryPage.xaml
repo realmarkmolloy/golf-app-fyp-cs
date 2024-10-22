@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GolfShotApp.ShotHistoryPage"
+             BackgroundColor="#F0F8FF">
+
+    <StackLayout Padding="20">
+        <Label
+            Text="Shot History"
+            FontSize="24"
+            HorizontalOptions="Center"
+            TextColor="#006400"
+            FontAttributes="Bold" />
+
+        <Label
+            Text="Here you will see all your tracked shots."
+            FontSize="16"
+            HorizontalOptions="Center"
+            TextColor="#8B4513" />
+
+        <!-- Placeholder for Shot History Data -->
+        <ListView x:Name="shotHistoryList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding ShotInfo}" Detail="{Binding ShotDistance}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
