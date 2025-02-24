@@ -14,10 +14,11 @@
 
 
             <Image
+                Source="golflogo1.svg"
                 Aspect="AspectFill"
                 HeightRequest="200"
-                SemanticProperties.Description="Beautiful Golf Course"
-                Source="Images/golf_course.jpg" />
+                SemanticProperties.Description="Beautiful Golf Logo"/>
+
 
             <Label
                 FontAttributes="Bold"

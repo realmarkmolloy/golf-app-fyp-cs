@@ -7,7 +7,7 @@ namespace GolfShotApp
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private async void OnTrackShotClicked(object sender, EventArgs e)

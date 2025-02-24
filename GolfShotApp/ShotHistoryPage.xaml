@@ -18,7 +18,6 @@
             HorizontalOptions="Center"
             TextColor="#8B4513" />
 
-        <!-- Placeholder for Shot History Data -->
         <ListView x:Name="shotHistoryList">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -11,10 +11,10 @@ namespace GolfShotApp
         {
             var builder = MauiApp.CreateBuilder();
           
-            // Register map functionality
+            
             builder
                 .UseMauiApp<App>()
-                .UseMauiMaps() // Correct way to register maps in .NET MAUI
+                .UseMauiMaps() 
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

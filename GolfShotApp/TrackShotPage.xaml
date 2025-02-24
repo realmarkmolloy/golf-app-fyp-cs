@@ -5,14 +5,13 @@
              x:Class="GolfShotApp.TrackShotPage">
 
     <StackLayout>
-        <!-- Define the Map with a valid MapType -->
+    
         <maps:Map x:Name="GolfCourseMap"
                   HeightRequest="400"
                   WidthRequest="400"
                   MapType="Street"/>
-        <!-- Use a valid MapType here -->
+ 
 
-        <!-- Label to display distance -->
         <Label x:Name="DistanceLabel"
                Text="Distance to Hole: "
                FontSize="Medium"
