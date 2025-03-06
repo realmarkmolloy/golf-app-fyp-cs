@@ -1,0 +1,60 @@
+<ContentPage
+    x:Class="GolfShotApp.Pages.ScorecardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Scorecard">
+
+    <VerticalStackLayout Padding="10">
+        <Label
+            FontAttributes="Bold"
+            FontSize="24"
+            HorizontalOptions="Center"
+            Text="Golf Scorecard" />
+
+        <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Hole" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="Player 1" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                Text="Player 2" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="3"
+                Text="Player 3" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="4"
+                Text="Player 4" />
+
+            <ListView ItemsSource="{Binding Holes}" RowHeight="40">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnDefinitions="*,*,*,*,*">
+                                <Label Grid.Column="0" Text="{Binding HoleNumber}" />
+                                <Entry Grid.Column="1" Text="{Binding Player1Score}" />
+                                <Entry Grid.Column="2" Text="{Binding Player2Score}" />
+                                <Entry Grid.Column="3" Text="{Binding Player3Score}" />
+                                <Entry Grid.Column="4" Text="{Binding Player4Score}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Button
+            BackgroundColor="Green"
+            Command="{Binding SaveScoresCommand}"
+            HorizontalOptions="Center"
+            Text="Save Scores"
+            TextColor="White" />
+    </VerticalStackLayout>
+</ContentPage>

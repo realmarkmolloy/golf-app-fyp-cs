@@ -1,0 +1,33 @@
+<ContentPage
+    x:Class="GolfShotApp.Pages.GpsTrackingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="GPS Distance Tracker">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="Distance to Hole:" />
+
+        <Label
+            FontSize="24"
+            HorizontalOptions="Center"
+            Text="{Binding DistanceToHole, StringFormat='{0:0.0} meters'}"
+            TextColor="Green" />
+
+        <Button
+            BackgroundColor="Blue"
+            Command="{Binding UpdateDistanceCommand}"
+            Text="Update Distance"
+            TextColor="White" />
+
+        <Button
+            BackgroundColor="Gray"
+            Command="{Binding SelectHoleCommand}"
+            Text="Select Hole"
+            TextColor="White" />
+
+    </VerticalStackLayout>
+</ContentPage>

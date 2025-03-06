@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Maps;
 using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace GolfShotApp;
@@ -9,9 +11,11 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
-		builder
+
+        builder
 			.UseMauiApp<App>()
-			.UseMauiCommunityToolkit()
+            .UseMauiMaps()
+            .UseMauiCommunityToolkit()
 			.ConfigureSyncfusionToolkit()
 			.ConfigureMauiHandlers(handlers =>
 			{
