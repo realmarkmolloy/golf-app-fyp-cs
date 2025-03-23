@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage>
+    <StackLayout Padding="20">
+        <Entry Placeholder="Username" Text="{Binding Username}" />
+        <Entry Placeholder="Email" Text="{Binding Email}" />
+        <Entry
+            IsPassword="True"
+            Placeholder="Password"
+            Text="{Binding Password}" />
+        <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" />
+        <Entry Placeholder="Handicap" Text="{Binding Handicap}" />
+        <Button Command="{Binding RegisterCommand}" Text="Register" />
+    </StackLayout>
+</ContentPage>

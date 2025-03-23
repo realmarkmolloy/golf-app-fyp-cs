@@ -1,117 +1,137 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pageModels="clr-namespace:GolfShotApp.PageModels"
-             xmlns:models="clr-namespace:GolfShotApp.Models"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="pageModels:ManageMetaPageModel"
-             x:Class="GolfShotApp.Pages.ManageMetaPage"
-             Title="Categories and Tags">
-
+<ContentPage
+    x:Class="GolfShotApp.Pages.ManageMetaPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:GolfShotApp.Models"
+    xmlns:pageModels="clr-namespace:GolfShotApp.PageModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="Categories and Tags"
+    x:DataType="pageModels:ManageMetaPageModel">
 
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior
-                EventName="Appearing"                
-                Command="{Binding AppearingCommand}" />
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
+
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red" />
         </Style>
 
         <Style TargetType="Entry">
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+            <Setter Property="TextColor" Value="Black" />
             <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="FontFamily" Value="OpenSansRegular"/>
-            <Setter Property="FontSize" Value="{OnIdiom 16,Desktop=24}" />
-            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
-            <Setter Property="MinimumHeightRequest" Value="44"/>
-            <Setter Property="MinimumWidthRequest" Value="44"/>
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Disabled">
-                            <VisualState.Setters>
-                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
+            <Setter Property="FontFamily" Value="OpenSansRegular" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="PlaceholderColor" Value="Gray" />
+            <Setter Property="MinimumHeightRequest" Value="44" />
+            <Setter Property="MinimumWidthRequest" Value="44" />
         </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Reset App" Command="{Binding ResetCommand}" />
+        <ToolbarItem Command="{Binding ResetCommand}" Text="Reset App" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
-        <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}" Padding="{StaticResource LayoutPadding}">
-            <Label Text="Categories" Style="{StaticResource Title2}"/>
-            <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}"
-                BindableLayout.ItemsSource="{Binding Categories}">
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!--  Categories Section  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Categories" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Categories}" Spacing="10">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:Category">
-                        <Grid ColumnSpacing="{StaticResource LayoutSpacing}" ColumnDefinitions="4*,3*,30,Auto">
-                            <Entry Text="{Binding Title}" Grid.Column="0"/>
-                            <Entry Text="{Binding Color}" Grid.Column="1" x:Name="ColorEntry">
+                        <Grid ColumnDefinitions="4*,3*,30,Auto" ColumnSpacing="10">
+                            <!--  Title Entry  -->
+                            <Entry
+                                Grid.Column="0"
+                                Placeholder="Category Name"
+                                Text="{Binding Title}" />
+
+                            <!--  Color Entry with Validation  -->
+                            <Entry
+                                Grid.Column="1"
+                                Placeholder="#FFFFFF"
+                                Text="{Binding Color}">
                                 <Entry.Behaviors>
-                                    <toolkit:TextValidationBehavior 
-                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                        Flags="ValidateOnUnfocusing"
-                                        RegexPattern="^#(?:[0-9a-fA-F]{3}){1,2}$" />
+                                    <toolkit:TextValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}" RegexPattern="^#(?:[0-9a-fA-F]{3}){1,2}$" />
                                 </Entry.Behaviors>
                             </Entry>
-                            <BoxView HeightRequest="30" WidthRequest="30" VerticalOptions="Center" 
-                                Color="{Binding Text, Source={x:Reference ColorEntry}, x:DataType=Entry}" Grid.Column="2"/>
-                            <Button 
-                                ImageSource="{StaticResource IconDelete}"
-                                Background="Transparent"
-                                Command="{Binding DeleteCategoryCommand, Source={RelativeSource AncestorType={x:Type pageModels:ManageMetaPageModel}}, x:DataType=pageModels:ManageMetaPageModel}" CommandParameter="{Binding .}"
-                                Grid.Column="3"/>
+
+                            <!--  Color Preview Box  -->
+                            <BoxView
+                                Grid.Column="2"
+                                HeightRequest="30"
+                                VerticalOptions="Center"
+                                WidthRequest="30"
+                                Color="{Binding Color}" />
+
+                            <!--  Delete Button  -->
+                            <Button
+                                Grid.Column="3"
+                                BackgroundColor="Transparent"
+                                Command="{Binding DeleteCategoryCommand, Source={RelativeSource AncestorType={x:Type pageModels:ManageMetaPageModel}}}"
+                                CommandParameter="{Binding .}"
+                                Text="X"
+                                TextColor="Red" />
                         </Grid>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
-            <Grid ColumnSpacing="{StaticResource LayoutSpacing}" ColumnDefinitions="*,Auto" Margin="0,10">
-                <Button Text="Save" Command="{Binding SaveCategoriesCommand}" HeightRequest="{OnIdiom 44,Desktop=60}" Grid.Column="0"/>
-                <Button ImageSource="{StaticResource IconAdd}" Command="{Binding AddCategoryCommand}" Grid.Column="1"/>
-            </Grid>
+            <!--  Add Category Button  -->
+            <Button Command="{Binding AddCategoryCommand}" Text="Add Category" />
 
-            <Label Text="Tags" Style="{StaticResource Title2}"/>
-            <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}"
-                BindableLayout.ItemsSource="{Binding Tags}">
+            <!--  Tags Section  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Tags" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tags}" Spacing="10">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:Tag">
-                        <Grid ColumnSpacing="{StaticResource LayoutSpacing}" ColumnDefinitions="4*,3*,30,Auto">
-                            <Entry Text="{Binding Title}" Grid.Column="0"/>
-                            <Entry Text="{Binding Color}" Grid.Column="1" x:Name="ColorEntry">
+                        <Grid ColumnDefinitions="4*,3*,30,Auto" ColumnSpacing="10">
+                            <!--  Title Entry  -->
+                            <Entry
+                                Grid.Column="0"
+                                Placeholder="Tag Name"
+                                Text="{Binding Title}" />
+
+                            <!--  Color Entry with Validation  -->
+                            <Entry
+                                Grid.Column="1"
+                                Placeholder="#FFFFFF"
+                                Text="{Binding Color}">
                                 <Entry.Behaviors>
-                                    <toolkit:TextValidationBehavior 
-                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                        Flags="ValidateOnUnfocusing"
-                                        RegexPattern="^#(?:[0-9a-fA-F]{3}){1,2}$" />
+                                    <toolkit:TextValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}" RegexPattern="^#(?:[0-9a-fA-F]{3}){1,2}$" />
                                 </Entry.Behaviors>
                             </Entry>
-                            <BoxView HeightRequest="30" WidthRequest="30" VerticalOptions="Center" 
-                                Color="{Binding Text, Source={x:Reference ColorEntry}, x:DataType=Entry}" Grid.Column="2"/>
-        
-                            <Button 
-                                ImageSource="{StaticResource IconDelete}"
-                                Background="Transparent"
-                                Command="{Binding DeleteTagCommand, Source={RelativeSource AncestorType={x:Type pageModels:ManageMetaPageModel}}, x:DataType=pageModels:ManageMetaPageModel}" CommandParameter="{Binding .}"
-                                Grid.Column="3"/>
+
+                            <!--  Color Preview Box  -->
+                            <BoxView
+                                Grid.Column="2"
+                                HeightRequest="30"
+                                VerticalOptions="Center"
+                                WidthRequest="30"
+                                Color="{Binding Color}" />
+
+                            <!--  Delete Button  -->
+                            <Button
+                                Grid.Column="3"
+                                BackgroundColor="Transparent"
+                                Command="{Binding DeleteTagCommand, Source={RelativeSource AncestorType={x:Type pageModels:ManageMetaPageModel}}}"
+                                CommandParameter="{Binding .}"
+                                Text="X"
+                                TextColor="Red" />
                         </Grid>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
-            <Grid ColumnSpacing="{StaticResource LayoutSpacing}" ColumnDefinitions="*,Auto" Margin="0,10">
-                <Button Text="Save" Command="{Binding SaveTagsCommand}" HeightRequest="{OnIdiom 44,Desktop=60}" Grid.Column="0"/>
-                <Button ImageSource="{StaticResource IconAdd}" Command="{Binding AddTagCommand}" Grid.Column="1"/>
-            </Grid>
+            <!--  Add Tag Button  -->
+            <Button Command="{Binding AddTagCommand}" Text="Add Tag" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
